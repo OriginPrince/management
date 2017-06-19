@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>my first heike?</title>
+</head>
+<body>
+
+	<iframe id="myFrame" src="http://bbs.chncare.com/plugin.php?id=fx_vote&vid=3&viewid=617"></iframe>
+	<script src="./jquery.min.js"></script>
+	<script type="text/javascript">
+
+	function getMessage(){
+		$('#myFrame').attr('src', $('#myFrame').attr('src'));
+	}
+		$(document).ready(function() {
+
+				setInterval("getMessage()",5);
+			
+			
+		});
+
+	</script>
+</body>
+</html>

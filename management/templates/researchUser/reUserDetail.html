@@ -1,0 +1,151 @@
+﻿{% include "top.html" %}
+<style>
+        .controls{
+            margin-left: 200px;
+            padding:20px 30px 20px 0 ;
+        }
+        .control-label {
+            padding-top: 30px;
+            width: 180px;
+            float: left;
+        }
+</style>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-8">
+                     <h2>研究员详情</h2>
+                    </div>
+                    <div class="col-md-4">
+                        {% ifequal userstatus 1 %}
+                            <a type="button" id="rePersonDel" class="btn btn-primary" style="float: right;margin-right: 50px;margin-top: 20px;">删除研究员</a>
+                        {% else %}
+                        {% endifequal %}
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               <div class="row">
+                   <div class="col-md-2">
+                       </div>
+                <div class="col-md-8">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Form Element Examples
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>Basic Form Examples</h3>
+                                    <form  class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">导师编号</label>
+                                            <div class="controls">
+                                                <p>{{ person.number }}</p>
+                                                </div>
+                                        </div>
+                                    <div class="control-group">
+                                            <label class="control-label">导师姓名</label>
+                                            <div class="controls">
+                                                <p>{{ person.name }}</p>
+                                                </div>
+                                        </div>
+                                    <div class="control-group">
+                                            <label class="control-label">手机号</label>
+                                            <div class="controls">
+                                                <p>{{ person.phone }}</p>
+                                                </div>
+                                        </div>
+                                    <div class="control-group">
+                                            <label class="control-label">qq号</label>
+                                            <div class="controls">
+                                                <p>{{ person.qqnumber }}</p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">分类</label>
+                                            <div class="controls">
+                                            <p>{{ person.className }}</p>
+                                                </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">照片</label>
+                                            <div class="controls">
+                                            <img class="Fimg" style="width: 50px;height: 50px;" src="{{ person.picture }}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">导师描述</label>
+                                            <div class="controls">
+                                                <p>{{ person.describe }}</p>
+                                                </div>
+                                        </div>
+                                        {% ifequal userstatus 1 %}
+                                        <div class="control-group">
+                                        <button type="reset"  id="test" class="btn btn-default" style="float: left;margin-left: 60px;width: 80px;">重置</button>
+                                        <button type="button" id="REsubmit" class="btn btn-success" style="float: right;margin-right: 60px;width: 80px;">修改</button>
+                                            </div>
+                                        {% else %}
+                                        {% endifequal %}
+                                    </form>
+                                    <br />
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+                   <div class="col-md-2">
+                   </div>
+            </div>
+                <!-- /. ROW
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>More Customization</h3>
+                         <p>
+                        For more customization for this template or its components please visit official bootstrap website i.e getbootstrap.com or <a href="#/components/" target="_blank">click here</a> . We hope you will enjoy our template. This template is easy to use, light weight and made with love by binarycart.com 
+                        </p>
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+             </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+<script src="/static/js/length.js"></script>
+<script>
+     $(function($){
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+    })
+    $("#REsubmit").click(function() {
+        var name = "{{ person.name }}";
+        var number = "{{ person.number }}";
+        var des = "{{ person.describe }}";
+        var phone =  "{{ person.phone }}";
+        var qq = "{{ person.qqnumber }}";
+        var picture = "{{ person.picture }}";
+        var FclassNumber = "{{ classNumber }}";
+        var teamNumber = "{{ person.teamNumber }}"
+        alert(FclassNumber)
+        var str = '/reUserUpdate/?name=' + name + '&number=' + number + '&picture=' + picture + '&FclassNumber=' + FclassNumber + '&des=' + des + '&tnumber=' + teamNumber + '&phone=' + phone + '&qq=' + qq;
+        window.location.href = str;
+    })
+    $("#rePersonDel").click(function(){
+        var number = "{{ person.number }}";
+        var teamNumber = "{{ person.teamNumber }}"
+        $("#textMessage").text("确认删除？");
+        $("#TextSubmit").click(function(){
+            window.location.href='/reUserDel/?Fnumber='+number+'&Tnumber='+teamNumber;
+        });
+        //注意此出绑定的方法是否为一次性
+        $("#textExample").modal('toggle');
+    })
+</script>
+        {% include "footer.html" %}

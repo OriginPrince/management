@@ -1,0 +1,88 @@
+﻿{% include "top.html" %}
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-8">
+                     <h2>研究员列表</h2>
+                    </div>
+                    <div class="col-md-4">
+                        {% ifequal userstatus 1 %}
+                            <button type="button" id="addUser" class="btn btn-primary" style="float: right;margin-right: 50px;margin-top: 20px;">添加研究员</button>
+                        {% else %}
+                        {% endifequal %}
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             Advanced Tables
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>姓名</th>
+                                            <th>编号</th>
+                                            <th>照片</th>
+                                            <th>标签</th>
+                                            <th>简介</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in List %}
+                                        <tr>
+                                            <td class="center">{{ i.name }}</td>
+                                            <td class="center">{{ i.number }}</td>
+                                            <td class="center">
+                                                <img class="Fimg" style="width: 50px;height: 50px;" src="{{ i.picture }}" />
+                                            </td>
+                                            <td class="center">{{ i.className }}</td>
+                                            <td class="center">
+                                                <input type="text" style="display: none;" value="{{ i.teamNumber }}">
+                                                <input type="text" style="display: none;" value="{{ i.phone }}">
+                                                <input type="text" style="display: none;" value="{{ i.qqnumber }}">
+                                            <a class="amend">
+                                                <p style="width:500px; line-height:25px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">{{ i.describe }}</p>
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+            </div>
+        </div>
+<script>
+    $(".amend").click(function(){
+        var name=$(this).parent().prev().prev().prev().prev().text();
+        var number=$(this).parent().prev().prev().prev().text();
+        var picture=$(this).parent().prev().prev().children(":first").attr('src');
+        var FclassName=$(this).parent().prev().text();
+        var des=$(this).text();
+        var phone=$(this).prev().prev().val();
+        var qqnumber=$(this).prev().val();
+        var teamNumber=$(this).prev().prev().prev().val();
+        var str='/reUserDetail/?name='+name+'&number='+number+'&picture='+picture+'&FclassName='+FclassName+'&des='+des+'&tnumber='+teamNumber+'&phone='+phone+'&qq='+qqnumber;
+        window.location.href=str;
+})
+    $("#addUser").click(function(){
+        var Fnumber="{{ number }}";
+        alert(Fnumber)
+        var str='/reUserAdd/?Fnumber='+Fnumber;
+        window.location.href=str;
+    })
+</script>
+   {% include "footer.html" %}

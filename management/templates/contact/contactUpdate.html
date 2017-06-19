@@ -1,0 +1,85 @@
+﻿{% include "top.html" %}
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>交流活动</h2>
+                       
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            交流活动更新
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input id="title" type="text" placeholder="请输入题目" style="width: 100%;margin-bottom: 30px;margin-top: 20px;border-radius: inherit;padding-top:10px;padding-bottom:10px;padding-left: 10px;"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" id="submit" class="btn btn-success" style="padding:10px 40px 10px 40px;float: right;margin-right: 40px;margin-top: 20px;">提交</button>
+                                        </div>
+                                    </div>
+
+                                    <div id="editorDiv" style="height:500px;">
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+               
+    </div>
+             <!-- /. PAGE INNER  -->
+</div>
+         <!-- /. PAGE WRAPPER  -->
+<script src="/static/js/HTMLcode.js"></script>
+<script>
+     $(function($){
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+    })
+    var editor=new wangEditor('editorDiv');
+    editor.create();
+    var title="{{ contact.title }}";
+    var content="{{ contact.content }}";
+    content=HtmlUtil.htmlDecode(content)
+    $("#title").val(title)
+     alert(content)
+    editor.$txt.append(content);
+    $("#submit").click(function(){
+        var text=editor.$txt.html();
+        var title=$("#title").val();
+        var author="{{ username }}";
+        var time="{{ contact.time }}";
+        alert(text)
+        $.get("/contactUpdate_post",{Ftitle:title,Fcontent:text,Fauthor:author,Ftime:time}).done(function(result){
+            if(result=="true"){
+                $("#textMessage").text("修改成功");
+                $("#TextSubmit").click(function(){
+                    window.location.href='/contactList/';
+                });
+                //注意此出绑定的方法是否为一次性
+                $("#textExample").modal('toggle');
+            }else{
+                $("#example").modal('toggle');
+                $("#AlertMessage").text("修改失败");
+            }
+        })
+    })
+</script>
+{% include "footer.html" %}

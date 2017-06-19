@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://www.cnblogs.com/mmix2009/p/3220990.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python:使用正则去除HTML标签(转) - 江湖么名 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/bundle-Minyx2_Lite.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/bundle-Minyx2_Lite-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/mmix2009/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/mmix2009/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/mmix2009/wlwmanifest.xml">
+<script async="" src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/encoder.js.下载"></script><script src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'mmix2009', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/bundle-Minyx2_Lite.js.下载" language="javascript" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+
+<div id="container">
+    <a class="minyx" href="http://www.cnblogs.com/">代码改变世界</a>
+    <ul id="topMnu">
+        <!-- 统计数据 -->
+        <li>
+            
+                <div id="blog_stats">
+Posts - 135, 
+Articles - 0, 
+Comments - 5
+<!----></div>
+            
+        </li>
+        <!-- 这边可以增加一些链接 -->
+        <!-- 博客园 -->
+        <li><a href="http://www.cnblogs.com/">Cnblogs</a></li>
+        <!-- 管理 -->
+        <li id="topMnu-dashboard">
+            <a id="lnkDashboard" href="http://www.cnblogs.com/mmix2009/admin/EditPosts.aspx">Dashboard</a></li>
+        <li>
+            <a id="lnkLogin" href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http://www.cnblogs.com/mmix2009/p/3220990.html">Login</a></li>
+    </ul>
+
+    <script type="text/javascript">
+        var m = window.__blog.topMenuRendered;
+        if (m) { m(__$("topMnu")); }
+    </script>
+
+    <div id="header">
+        <ul id="menu">
+            <!-- 首页，当前section加上current类 -->
+            <li id="menu-home" class="current">
+                <a id="lnkHome" href="http://www.cnblogs.com/mmix2009/">Home</a></li>
+            <!-- 联系 -->
+            <li id="menu-contact">
+                <a id="lnkContact" href="http://space.cnblogs.com/msg/send/%e6%b1%9f%e6%b9%96%e4%b9%88%e5%90%8d">Contact</a></li>
+            <!-- 相册 -->
+            <li id="menu-gallary">
+                <a id="lnkGallery" href="http://www.cnblogs.com/mmix2009/gallery.html">Gallery</a></li>
+            <!-- Rss订阅 -->
+            <li id="rss">
+                <a id="lnkRss" href="http://www.cnblogs.com/mmix2009/rss">RSS</a></li>
+        </ul>
+        <div id="newmsg"></div>
+        <h1>
+            <!-- 主标题 -->
+            <a id="lnkBlogTitle" href="http://www.cnblogs.com/mmix2009/">江湖么名</a>
+            <!-- 子标题 -->
+            <small>
+                </small>
+        </h1>
+    </div>
+
+    <script type="text/javascript">
+        var m = window.__blog.headerRendered;
+        if (m) { m(__$("header")); }
+    </script>
+
+    <div id="wrapper">
+        <div id="content">
+            <script type="text/javascript">
+                var m = window.__blog.preRenderPosts;
+                if (m) { m(); }
+            </script>
+            
+<div id="post_detail">
+<div class="post" id="post">
+    <a name="top"></a>
+    <h2><a id="cb_post_title_url" href="http://www.cnblogs.com/mmix2009/p/3220990.html">Python:使用正则去除HTML标签(转)</a></h2>
+    <small>2013-07-28 12:22 by 江湖么名, <span id="post_view_count">5004</span> 阅读, <span id="post_comment_count">...</span> 评论, <a href="http://www.cnblogs.com/mmix2009/p/3220990.html#" onclick="AddToWz(3220990);return false;">收藏</a>,  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3220990" rel="nofollow">编辑</a></small>
+    <div class="entry">
+        <div id="cnblogs_post_body"><p>利用正则式处理，不知道会不会有性能问题，没有经过太多测试。<br>
+目前我有很多还是使用BeautifulSoup进行这种处理。<br>
+HTML实体处理的只是用于处理一些常用的实体。</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">#</span><span style="color: #008000;"> -*- coding: utf-8-*-</span>
+<span style="color: #008080;"> 2</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> re
+</span><span style="color: #008080;"> 3</span> <span style="color: #008000;">#</span><span style="color: #008000;">#过滤HTML中的标签</span>
+<span style="color: #008080;"> 4</span> <span style="color: #008000;">#</span><span style="color: #008000;">将HTML中标签等信息去掉</span>
+<span style="color: #008080;"> 5</span> <span style="color: #008000;">#</span><span style="color: #008000;">@param htmlstr HTML字符串.</span>
+<span style="color: #008080;"> 6</span> <span style="color: #0000ff;">def</span><span style="color: #000000;"> filter_tags(htmlstr):
+</span><span style="color: #008080;"> 7</span> <span style="color: #008000;">#</span><span style="color: #008000;">先过滤CDATA</span>
+<span style="color: #008080;"> 8</span>     re_cdata=re.compile(<span style="color: #800000;">'</span><span style="color: #800000;">//&lt;!\[CDATA\[[^&gt;]*//\]\]&gt;</span><span style="color: #800000;">'</span>,re.I) <span style="color: #008000;">#</span><span style="color: #008000;">匹配CDATA</span>
+<span style="color: #008080;"> 9</span>     re_script=re.compile(<span style="color: #800000;">'</span><span style="color: #800000;">&lt;\s*script[^&gt;]*&gt;[^&lt;]*&lt;\s*/\s*script\s*&gt;</span><span style="color: #800000;">'</span>,re.I)<span style="color: #008000;">#</span><span style="color: #008000;">Script</span>
+<span style="color: #008080;">10</span>     re_style=re.compile(<span style="color: #800000;">'</span><span style="color: #800000;">&lt;\s*style[^&gt;]*&gt;[^&lt;]*&lt;\s*/\s*style\s*&gt;</span><span style="color: #800000;">'</span>,re.I)<span style="color: #008000;">#</span><span style="color: #008000;">style</span>
+<span style="color: #008080;">11</span>     re_br=re.compile(<span style="color: #800000;">'</span><span style="color: #800000;">&lt;br\s*?/?&gt;</span><span style="color: #800000;">'</span>)<span style="color: #008000;">#</span><span style="color: #008000;">处理换行</span>
+<span style="color: #008080;">12</span>     re_h=re.compile(<span style="color: #800000;">'</span><span style="color: #800000;">&lt;/?\w+[^&gt;]*&gt;</span><span style="color: #800000;">'</span>)<span style="color: #008000;">#</span><span style="color: #008000;">HTML标签</span>
+<span style="color: #008080;">13</span>     re_comment=re.compile(<span style="color: #800000;">'</span><span style="color: #800000;">&lt;!--[^&gt;]*--&gt;</span><span style="color: #800000;">'</span>)<span style="color: #008000;">#</span><span style="color: #008000;">HTML注释</span>
+<span style="color: #008080;">14</span>     s=re_cdata.sub(<span style="color: #800000;">''</span>,htmlstr)<span style="color: #008000;">#</span><span style="color: #008000;">去掉CDATA</span>
+<span style="color: #008080;">15</span>     s=re_script.sub(<span style="color: #800000;">''</span>,s) <span style="color: #008000;">#</span><span style="color: #008000;">去掉SCRIPT</span>
+<span style="color: #008080;">16</span>     s=re_style.sub(<span style="color: #800000;">''</span>,s)<span style="color: #008000;">#</span><span style="color: #008000;">去掉style</span>
+<span style="color: #008080;">17</span>     s=re_br.sub(<span style="color: #800000;">'</span><span style="color: #800000;">\n</span><span style="color: #800000;">'</span>,s)<span style="color: #008000;">#</span><span style="color: #008000;">将br转换为换行</span>
+<span style="color: #008080;">18</span>     s=re_h.sub(<span style="color: #800000;">''</span>,s) <span style="color: #008000;">#</span><span style="color: #008000;">去掉HTML 标签</span>
+<span style="color: #008080;">19</span>     s=re_comment.sub(<span style="color: #800000;">''</span>,s)<span style="color: #008000;">#</span><span style="color: #008000;">去掉HTML注释</span>
+<span style="color: #008080;">20</span> <span style="color: #008000;">#</span><span style="color: #008000;">去掉多余的空行</span>
+<span style="color: #008080;">21</span>     blank_line=re.compile(<span style="color: #800000;">'</span><span style="color: #800000;">\n+</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+</span><span style="color: #008080;">22</span>     s=blank_line.sub(<span style="color: #800000;">'</span><span style="color: #800000;">\n</span><span style="color: #800000;">'</span><span style="color: #000000;">,s)
+</span><span style="color: #008080;">23</span>     s=replaceCharEntity(s)<span style="color: #008000;">#</span><span style="color: #008000;">替换实体</span>
+<span style="color: #008080;">24</span> <span style="color: #0000ff;">return</span><span style="color: #000000;"> s
+</span><span style="color: #008080;">25</span> 
+<span style="color: #008080;">26</span> <span style="color: #008000;">#</span><span style="color: #008000;">#替换常用HTML字符实体.</span>
+<span style="color: #008080;">27</span> <span style="color: #008000;">#</span><span style="color: #008000;">使用正常的字符替换HTML中特殊的字符实体.</span>
+<span style="color: #008080;">28</span> <span style="color: #008000;">#</span><span style="color: #008000;">你可以添加新的实体字符到CHAR_ENTITIES中,处理更多HTML字符实体.</span>
+<span style="color: #008080;">29</span> <span style="color: #008000;">#</span><span style="color: #008000;">@param htmlstr HTML字符串.</span>
+<span style="color: #008080;">30</span> <span style="color: #0000ff;">def</span><span style="color: #000000;"> replaceCharEntity(htmlstr):
+</span><span style="color: #008080;">31</span>     CHAR_ENTITIES={<span style="color: #800000;">'</span><span style="color: #800000;">nbsp</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span> <span style="color: #800000;">'</span>,<span style="color: #800000;">'</span><span style="color: #800000;">160</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span> <span style="color: #800000;">'</span><span style="color: #000000;">,
+</span><span style="color: #008080;">32</span> <span style="color: #800000;">'</span><span style="color: #800000;">lt</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span><span style="color: #800000;">&lt;</span><span style="color: #800000;">'</span>,<span style="color: #800000;">'</span><span style="color: #800000;">60</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span><span style="color: #800000;">&lt;</span><span style="color: #800000;">'</span><span style="color: #000000;">,
+</span><span style="color: #008080;">33</span> <span style="color: #800000;">'</span><span style="color: #800000;">gt</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span><span style="color: #800000;">&gt;</span><span style="color: #800000;">'</span>,<span style="color: #800000;">'</span><span style="color: #800000;">62</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span><span style="color: #800000;">&gt;</span><span style="color: #800000;">'</span><span style="color: #000000;">,
+</span><span style="color: #008080;">34</span> <span style="color: #800000;">'</span><span style="color: #800000;">amp</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span><span style="color: #800000;">&amp;</span><span style="color: #800000;">'</span>,<span style="color: #800000;">'</span><span style="color: #800000;">38</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span><span style="color: #800000;">&amp;</span><span style="color: #800000;">'</span><span style="color: #000000;">,
+</span><span style="color: #008080;">35</span> <span style="color: #800000;">'</span><span style="color: #800000;">quot</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span><span style="color: #800000;">"</span><span style="color: #800000;">'</span>,<span style="color: #800000;">'</span><span style="color: #800000;">34</span><span style="color: #800000;">'</span>:<span style="color: #800000;">'</span><span style="color: #800000;">"</span><span style="color: #800000;">'</span><span style="color: #000000;">,}
+</span><span style="color: #008080;">36</span> 
+<span style="color: #008080;">37</span>     re_charEntity=re.compile(r<span style="color: #800000;">'</span><span style="color: #800000;">&amp;#?(?P&lt;name&gt;\w+);</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+</span><span style="color: #008080;">38</span>     sz=<span style="color: #000000;">re_charEntity.search(htmlstr)
+</span><span style="color: #008080;">39</span> <span style="color: #0000ff;">while</span><span style="color: #000000;"> sz:
+</span><span style="color: #008080;">40</span>         entity=sz.group()<span style="color: #008000;">#</span><span style="color: #008000;">entity全称，如&amp;gt;</span>
+<span style="color: #008080;">41</span>         key=sz.group(<span style="color: #800000;">'</span><span style="color: #800000;">name</span><span style="color: #800000;">'</span>)<span style="color: #008000;">#</span><span style="color: #008000;">去除&amp;;后entity,如&amp;gt;为gt</span>
+<span style="color: #008080;">42</span> <span style="color: #0000ff;">try</span><span style="color: #000000;">:
+</span><span style="color: #008080;">43</span>             htmlstr=re_charEntity.sub(CHAR_ENTITIES[key],htmlstr,1<span style="color: #000000;">)
+</span><span style="color: #008080;">44</span>             sz=<span style="color: #000000;">re_charEntity.search(htmlstr)
+</span><span style="color: #008080;">45</span> <span style="color: #0000ff;">except</span><span style="color: #000000;"> KeyError:
+</span><span style="color: #008080;">46</span> <span style="color: #008000;">#</span><span style="color: #008000;">以空串代替</span>
+<span style="color: #008080;">47</span>             htmlstr=re_charEntity.sub(<span style="color: #800000;">''</span>,htmlstr,1<span style="color: #000000;">)
+</span><span style="color: #008080;">48</span>             sz=<span style="color: #000000;">re_charEntity.search(htmlstr)
+</span><span style="color: #008080;">49</span> <span style="color: #0000ff;">return</span><span style="color: #000000;"> htmlstr
+</span><span style="color: #008080;">50</span> 
+<span style="color: #008080;">51</span> <span style="color: #0000ff;">def</span><span style="color: #000000;"> repalce(s,re_exp,repl_string):
+</span><span style="color: #008080;">52</span> <span style="color: #0000ff;">return</span><span style="color: #000000;"> re_exp.sub(repl_string,s)
+</span><span style="color: #008080;">53</span> 
+<span style="color: #008080;">54</span> <span style="color: #0000ff;">if</span> <span style="color: #800080;">__name__</span>==<span style="color: #800000;">'</span><span style="color: #800000;">__main__</span><span style="color: #800000;">'</span><span style="color: #000000;">:
+</span><span style="color: #008080;">55</span>     s=file(<span style="color: #800000;">'</span><span style="color: #800000;">Google.htm</span><span style="color: #800000;">'</span><span style="color: #000000;">).read()
+</span><span style="color: #008080;">56</span>     news=<span style="color: #000000;">filter_tags(s)
+</span><span style="color: #008080;">57</span> <span style="color: #0000ff;">print</span> news</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>输出结果：<br><br>
+Google网页 图片 地图 资讯 视频 财经 更多  博客 生活 热榜 网站导航  日历 照片 文档 协作平台  输入法 工具栏 软件精选  更多  个性化首页 | 登录<br><br><br>
+高级搜索<br><br>
+使用偏好<br><br>
+语言工具所有网页  中文网页  简体中文网页  中国的网页  <br><br>
+广告计划 – Google 大全 – Google.com in English2009 – 隐私权 – ICP证合字B2-20070004号</p></div><div id="MySignature"></div>
+        <div class="clear"></div>
+        <div id="blog_post_info_block">
+        <div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3220990,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;fb51b345-9c19-df11-ba8f-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/mmix2009/" target="_blank"><img src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/mmix2009/">江湖么名</a><br>
+            <a href="http://home.cnblogs.com/u/mmix2009/followees">关注 - 2</a><br>
+            <a href="http://home.cnblogs.com/u/mmix2009/followers">粉丝 - 17</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;fb51b345-9c19-df11-ba8f-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3220990,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(3220990,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+        <div class="clear"></div>
+        <div id="post_next_prev"><a href="http://www.cnblogs.com/mmix2009/p/3220987.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/mmix2009/p/3220987.html" title="发布于2013-07-28 12:19">Python和xml简介</a><br><a href="http://www.cnblogs.com/mmix2009/p/3220995.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/mmix2009/p/3220995.html" title="发布于2013-07-28 12:29">python urllib2模块</a><br></div>
+    </div>
+</div>
+    <ul class="postmetadata">
+        <li class="icon_cat" id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/mmix2009/category/502852.html" target="_blank">python_html</a></li>
+        <li class="icon_bullet" id="EntryTag"></li>
+    </ul>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=121915,cb_entryId=3220990,cb_blogApp=currentBlogApp,cb_blogUserGuid='fb51b345-9c19-df11-ba8f-001cf0cd104b',cb_entryCreatedDate='2013/7/28 12:22:00';loadViewCount(cb_entryId);</script>
+<script type="text/javascript">
+    var m = window.__blog.postRendered;
+    if (m) { m(__$("post")); }
+</script>
+<script type="text/javascript">
+    var m = window.__blog.postRenderPosts;
+    if (m) { m(); }
+</script>
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div style="color:green;margin:50px 0;font-weight:bold;">努力加载评论中...</div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/mmix2009/p/3220990.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/mmix2009/p/3220990.html#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.gcpowertools.com.cn/products/activereports/excel.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank">【报表】Excel 报表开发18 招式，人人都能做报表</a><br><a href="http://click.aliyun.com/m/15483" target="_blank">【活动】阿里云海外云服务全面降价助力企业全球布局</a><br><a href="http://web.tanzhouedu.com/index/keCourse.html" target="_blank">【粉丝福利】Web前端基础到高级在线直播教学</a><br><a href="https://group.cnblogs.com/topic/76829.html" target="_blank">【实用】40+篇云服务器操作及运维基础知识！</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://cn.udacity.com/course/data-analyst-nanodegree--nd002-cn-basic/?utm_source=cnblogs&amp;utm_medium=referral&amp;utm_campaign=DAND03" target="_blank"><img width="300" height="250" src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/24442-20170509155547285-603349158.jpg" alt="优达学城0509"></a></div>
+<div id="under_post_news"></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/17215/" target="_blank"><img width="468" height="60" src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/24442-20170417123605337-535991337.jpg" alt="阿里云E4"></a></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+        </div>
+
+        <script type="text/javascript">
+            var m = window.__blog.contentRendered;
+            if (m) { m(__$("content")); }
+        </script>
+
+        <div id="sidebar">
+            
+<div id="about">
+<div>
+<h2 id="about_title">About</h2>
+<div id="about_body">
+<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/mmix2009/">江湖么名</a><br>园龄：<a href="http://home.cnblogs.com/u/mmix2009/" title="入园时间：2010-02-15">7年3个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/mmix2009/followers/">17</a><br>关注：<a href="http://home.cnblogs.com/u/mmix2009/followees/">2</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;fb51b345-9c19-df11-ba8f-001cf0cd104b&#39;)">+加关注</a></div></div></div>
+<script type="text/javascript">loadBlogNews();</script>
+</div>
+</div>
+</div>
+
+            <script type="text/javascript">
+                var m = window.__blog.aboutRendered;
+                if (m) { m(__$("about")); }
+            </script>
+            
+<div id="mySearchWrapper">
+    <div id="mySearch">
+        <input type="image" src="./Python_使用正则去除HTML标签(转) - 江湖么名 - 博客园_files/btnsearch.gif" id="btnZzk" class="submit" onclick="zzk_go();return false;">
+        <label class="lb_search"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="keyword"></label>
+    </div>
+</div>
+
+            <script type="text/javascript">
+                var m = window.__blog.searchFormRendered;
+                if (m) { m(__$("searchform")); }
+            </script>
+            <div id="sideMain">
+            <div id="side-recent-comments">
+        <h2>最新评论</h2>
+        <ul class="voice">
+        </ul>
+    </div></div>
+            <div id="sideRight">
+            <div id="side-archives">
+        <h2>随笔档案</h2>
+        <ul class="date">
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2014/08.html">2014年8月(1)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2014/06.html">2014年6月(1)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2014/05.html">2014年5月(1)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2014/04.html">2014年4月(1)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2014/03.html">2014年3月(7)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2014/02.html">2014年2月(10)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2014/01.html">2014年1月(27)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2013/12.html">2013年12月(4)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2013/09.html">2013年9月(1)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2013/08.html">2013年8月(8)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2013/07.html">2013年7月(65)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2013/02.html">2013年2月(1)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2013/01.html">2013年1月(2)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2012/09.html">2012年9月(1)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2012/08.html">2012年8月(1)</a></li>
+                <li><a href="http://www.cnblogs.com/mmix2009/archive/2012/07.html">2012年7月(4)</a></li>
+        </ul>
+    </div>    
+    
+    
+    
+
+
+</div>
+            <div id="sideLeft">
+            <div id="side-calendar">
+        <h2>日历</h2>
+        <div id="blog-calendar"><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/04/01&#39;);return false;">&lt;</a></td><td align="center">2017年5月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/06/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td class="CalTodayDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalWeekendDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div>
+    </div><div id="side-categories">
+        <h2>随笔分类</h2>
+        <ul class="folder">
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/676856.html">2015年(1)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/449214.html">android(2)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/498148.html">c语言(2)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/394534.html">java(4)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/550321.html">pyGtk(2)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/500812.html">python(21)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/501039.html">python(转)(25)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/502852.html">python_html(14)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/503567.html">python_sqlite3(5)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/550652.html">QT(18)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/502850.html">XML(2)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/550694.html">程序发布(6)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/499302.html">工具(11)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/401117.html">汇编(1)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/550752.html">配置(4)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/558091.html">视频音频(3)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/545470.html">算法(7)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/410946.html">随笔(6)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/550750.html">杂(1)</a>
+                </li>
+                <li>
+                    
+                    <a href="http://www.cnblogs.com/mmix2009/category/502743.html">正则表达式(7)</a>
+                </li>
+        </ul>
+    </div><div id="side-top-posts-custom">
+    <h2>推荐排行榜</h2>
+    <div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/mmix2009/p/3536825.html">1. Qt发布可能遇到的问题(5)</a></li><li><a href="http://www.cnblogs.com/mmix2009/p/3229679.html">2. python检测文件的MD5值(2)</a></li><li><a href="http://www.cnblogs.com/mmix2009/p/3228431.html">3. 多线程下,Python Sqlite3报[SQLite objects created in a thread can only be used...]问题(1)</a></li><li><a href="http://www.cnblogs.com/mmix2009/p/3226795.html">4. python访问web的利器：urllib2(1)</a></li><li><a href="http://www.cnblogs.com/mmix2009/p/3226775.html">5. urllib2模块、cookielib模块(1)</a></li></ul></div>
+</div><div id="side-top-posts">
+    <h2>阅读排行榜</h2>
+    <div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/mmix2009/p/3191596.html">1. 关于make: *** No rule to make target `clean'. Stop.这个莫名其妙问题的解决方法(37114)</a></li><li><a href="http://www.cnblogs.com/mmix2009/p/3226730.html">2. Python BeautifulSoup 简单笔记(15829)</a></li><li><a href="http://www.cnblogs.com/mmix2009/p/3536825.html">3. Qt发布可能遇到的问题(15470)</a></li><li><a href="http://www.cnblogs.com/mmix2009/p/3231265.html">4. Python urllib2 设置超时时间并处理超时异常(11444)</a></li><li><a href="http://www.cnblogs.com/mmix2009/p/3538663.html">5. python 类继承(9793)</a></li></ul></div>
+</div></div>
+            
+                <div id="sideContainer"></div>
+                <script type="text/javascript">
+                    $.ajax({
+                        url: '/' + currentBlogApp + '/mvc/blog/Minyx2_Lite_SideColumn.aspx',
+                        data: '{}',
+                        type: 'post',
+                        dataType: 'text',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (data) {
+                                $("#sideContainer").html(data);
+                                loadBlogDefaultCalendar();
+                                loadBlogSideBlocks();
+                                var m = window.__blog.sideContainerRendered;
+                                if (m) { m(__$("sideContainer")); }
+                                window.__blog.sidebar.__layout();
+                            }
+                        }
+                    });
+
+                </script>
+            
+        </div>
+
+        <script type="text/javascript">
+            var m = window.__blog.sidebarRendered;
+            if (m) { m(__$("sidebar")); }
+        </script>
+
+        <div id="footer">
+            
+<p id="logoFoot">
+    <a href="http://www.spiga.com.mx/" title="Agencia Interactiva Spiga">www.spiga.com.mx</a>
+</p>
+<div class="footText">
+<p>
+Copyright ©2017 江湖么名
+</p>
+<p>
+<a href="http://www.cnblogs.com/">博客园</a>
+</p>
+</div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var m = window.__blog.wrapperRendered;
+        if (m) { m(__$("wrapper")); }
+    </script>
+
+</div>
+<script type="text/javascript">
+    var m = window.__blog.containerRendered;
+    if (m) { m(__$("container")); }
+</script>
+
+
+<div id="Vidown_extension_alhnopeoagjmjfgcbnokcnagkecgdcdh" style="display: none;"></div><div id="vidown_float_panel_div" style="display: none;"><a id="vidown_float_panel_download" title="用【维棠】下载视频">维棠下载</a><span id="vidown_float_panel_sep">|</span><input type="button" value=" " id="vidown_float_panel_close" title="关闭"></div></body></html>

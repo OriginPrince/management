@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>通用大学科研组科学信息管理系统</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/wangEditor.min.css" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="/static/css/font-awesome.css" rel="stylesheet" />
+     <!-- MORRIS CHART STYLES-->
+    <link href="/static/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="/static/css/custom.css" rel="stylesheet" />
+
+    <link href="/static/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <!-- JQUERY SCRIPTS -->
+    <script src="/static/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/wangEditor.min.js"></script>
+        <!-- METISMENU SCRIPTS -->
+    <script src="/static/js/jquery.metisMenu.js"></script>
+     <!-- MORRIS CHART SCRIPTS -->
+     <script src="/static/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="/static/js/morris/morris.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="/static/js/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/js/dataTables/dataTables.bootstrap.js"></script>
+<script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+</script>
+    <script src="/static/js/custom.js"></script>
+</head>
+<body>
+{% include "modalBox.html" %}
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">管理系统</a>
+            </div>
+
+            {% if username %}
+                <div style="color: white;
+padding: 15px 50px 5px 50px;
+float: right;
+font-size: 16px;"> 欢迎{{ username }}&nbsp;
+                    <a href="/logout/" class="btn btn-danger square-btn-adjust">注销</a>
+                </div>
+            {%else%}
+                <div style="color: white;
+padding: 15px 50px 5px 50px;
+float: right;
+font-size: 16px;">
+                     <a href="/login/" class="btn btn-danger square-btn-adjust">登录</a>
+                 </div>
+             {% endif %}
+        {% ifequal userstatus  0%}
+                <div style="color: white;width:500px;margin:0 auto;font-size: 26px;text-align: center;padding-top: 7px;"> 系统管理员
+                </div>
+            {%else%}
+                <div style="color: white;width:500px;margin:0 auto;font-size: 26px;text-align: center;padding-top: 7px;">{{ userteamName }}
+                 </div>
+             {%endifequal%}
+        </nav>
+           <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+				<li class="text-center">
+                    <img src="/static/img/find_user.png" class="user-image img-responsive"/>
+					</li>
+                    {% ifequal userstatus 0 %}
+                        <li>
+                                <a  href="/userList/"><i class="fa fa-table fa-3x"></i>用户管理</a>
+                            </li>
+                        <li>
+                        <a   href="/personalInfoDetail/"><i class="fa fa-dashboard fa-3x"></i> 个人信息</a>
+                    </li>
+
+                    {% endifequal %}
+                    {% ifequal userstatus 1 %}
+                    <li>
+                        <a href="#"><i class="fa fa-dashboard fa-3x"></i> 用户管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/userList/">用户管理</a>
+                            </li>
+                            <li>
+                                <a href="/personalInfoDetail/">个人信息</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endifequal %}
+                {% ifequal userstatus 2%}
+                <li>
+                        <a   href="/personalInfoDetail/"><i class="fa fa-dashboard fa-3x"></i> 个人信息</a>
+                    </li>
+                {% endifequal %}
+                    <hr/>
+                {% ifequal userstatus 0 %}
+                    {% else %}
+                     <li>
+                        <a  href="#"><i class="fa fa-desktop fa-3x"></i> 新闻动态<span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                             <li>
+                                 <a href="/newsList/">近日要闻</a>
+                             </li>
+                             <li>
+                                 <a href="#">公告信息<span class="fa arrow"></span></a>
+                                  <ul class="nav nav-third-level">
+                                      <li>
+                                         <a href="/publicNew/">最新信息</a>
+                                    </li>
+                                     <li>
+                                         <a href="/publicList/">公告信息历史详情</a>
+                                    </li>
+                                  </ul>
+                             </li>
+                         </ul>
+                    </li>
+                {% endifequal %}
+                    <li>
+                        {% ifequal userstatus 0 %}
+                        <a href="/teamList/"><i class="fa fa-qrcode fa-3x"></i> 研究组管理</a>
+                        {% endifequal %}
+                        {% ifequal userstatus 1 %}
+                        <a href="/teamDetail/"><i class="fa fa-qrcode fa-3x"></i> 研究队伍</a>
+                        {% endifequal %}
+                    {% ifequal userstatus 2 %}
+                        <a href="/teamTeacherDetail/"><i class="fa fa-qrcode fa-3x"></i> 研究队伍</a>
+                        {% endifequal %}
+                    </li>
+                {% ifequal userstatus 0 %}
+                    {% else %}
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-3x"></i> 学术交流<span class="fa arrow"></span></a>
+                               <ul class="nav nav-second-level">
+                                   <li>
+                                       <a href="/contactList/">交流活动</a>
+                                   </li>
+                                   <li>
+                                       <a href="/coordinateList/">合作项目</a>
+                                   </li>
+                               </ul>
+                    </li>
+                      <li  >
+                        <a  href="#"><i class="fa fa-table fa-3x"></i> 科研成果<span class="fa arrow"></span></a>
+                          <ul class="nav nav-second-level">
+                              <li>
+                                  <a href="/paperList/">学术论文</a>
+                              </li>
+                              <li>
+                                  <a href="/bookList/">专著成果</a>
+                              </li>
+                              <li>
+                                  <a href="/patentList/">专利成果</a>
+                              </li>
+                              <li>
+                                  <a href="/softwareList/">软件登记</a>
+                              </li>
+                          </ul>
+                    </li>
+                    <li  >
+                        <a  href="#"><i class="fa fa-edit fa-3x"></i> 人才培养<span class="fa arrow"></span> </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admissionList/">招生信息</a>
+                            </li>
+                        </ul>
+                    </li>
+					 <li  >
+                        <a  href="/aboutList/"><i class="fa fa-laptop fa-3x"></i>关于我们</a>
+                    </li>
+                {% endifequal %}
+                </ul>
+            </div>
+        </nav>
+
+

@@ -1,0 +1,118 @@
+﻿{% include "top.html" %}
+<style>
+        .controls{
+            margin-left: 200px;
+            padding:20px 30px 20px 0 ;
+        }
+        .control-label {
+            padding-top: 30px;
+            width: 180px;
+            float: left;
+        }
+</style>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>个人信息</h2>
+                       
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               <div class="row">
+                   <div class="col-md-2">
+                       </div>
+                <div class="col-md-8">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           个人信息详情
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>个人信息详情</h3>
+                                    <form  class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">用户姓名</label>
+                                            <div class="controls">
+                                                <p class="form-control">{{ person.name }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">用户ID</label>
+                                            <div class="controls">
+                                                <p class="form-control" >{{ person.number }}</p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">电话号码</label>
+                                            <div class="controls">
+                                                <p class="form-control">{{ person.phone }}</p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">权限</label>
+                                            <div class="controls">
+                                                {% ifequal userstatus 0 %}
+                                                <p class="form-control" >系统管理员</p>
+                                                {% endifequal %}
+                                                {% ifequal userstatus 1 %}
+                                                <p class="form-control">研究组管理员</p>
+                                                {% endifequal %}
+                                                {% ifequal userstatus 2 %}
+                                                <p class="form-control">普通用户</p>
+                                                {% endifequal %}
+                                                </div>
+                                        </div>
+                                         <div class="control-group">
+                                            <label class="control-label">所属研究组</label>
+                                            <div class="controls">
+                                                <p class="form-control">{{userteamName}}</p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                        <button type="reset" id="back" class="btn btn-default" style="float: left;margin-left: 60px;width: 80px;">返回</button>
+                                        <button type="button" id="REsubmit" class="btn btn-success" style="float: right;margin-right: 60px;width: 80px;">修改</button>
+                                            </div>
+                                    </form>
+                                    <br />
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+                   <div class="col-md-2">
+                   </div>
+            </div>
+                <!-- /. ROW
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>More Customization</h3>
+                         <p>
+                        For more customization for this template or its components please visit official bootstrap website i.e getbootstrap.com or <a href="#/components/" target="_blank">click here</a> . We hope you will enjoy our template. This template is easy to use, light weight and made with love by binarycart.com 
+                        </p>
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+             </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+<script>
+     $(function($){
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+    })
+     $("#back").click(function(){
+         history.back();
+     })
+    $("#REsubmit").click(function(){
+        window.location.href='/personalInfoUpdate/';
+    });
+</script>
+        {% include "footer.html" %}

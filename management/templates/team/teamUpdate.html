@@ -1,0 +1,124 @@
+﻿{% include "top.html" %}
+<style>
+        .controls{
+            margin-left: 200px;
+            padding:20px 30px 20px 0 ;
+        }
+        .control-label {
+            padding-top: 30px;
+            width: 180px;
+            float: left;
+        }
+</style>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>研究队伍信息更新</h2>
+                       
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               <div class="row">
+                   <div class="col-md-2">
+                       </div>
+                <div class="col-md-8">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            研究队伍信息更新
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>研究队伍信息更新</h3>
+                                    <form  class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">科研组名称</label>
+                                            <div class="controls">
+                                                <input class="form-control" id="REname" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">科研组编号</label>
+                                            <div class="controls">
+                                           <p class="form-control">{{ team.number }}</p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">科研组描述</label>
+                                            <div class="controls">
+                                                <input class="form-control" id="REdes" />
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                        <button type="button"  id="test" class="btn btn-default" style="float: left;margin-left: 60px;width: 80px;">返回</button>
+                                        <button type="button" id="REsubmit" class="btn btn-primary" style="float: right;margin-right: 60px;width: 80px;">修改</button>
+                                            </div>
+                                    </form>
+                                    <br />
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+                   <div class="col-md-2">
+                   </div>
+            </div>
+                <!-- /. ROW
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>More Customization</h3>
+                         <p>
+                        For more customization for this template or its components please visit official bootstrap website i.e getbootstrap.com or <a href="#/components/" target="_blank">click here</a> . We hope you will enjoy our template. This template is easy to use, light weight and made with love by binarycart.com 
+                        </p>
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+             </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+<script>
+    $(function($){
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+    })
+    $("#REname").val("{{ team.name }}");
+    $("#REdes").val("{{ team.des }}");
+        $("#test").click(function(){
+            history.back()
+        });
+    $("#REsubmit").click(function () {
+        var name=$("#REname").val();
+        var des=$("#REdes").val();
+        var number="{{ team.number }}";
+        $.post("/teamUpdate_post/",{Fname:name,Fdes:des,Fnumber:number}).done(function(result){
+                             if(result=="true"){
+                                 $("#textMessage").text("修改成功");
+                                 $("#TextSubmit").click(function(){
+                                    var userstatus="{{ userstatus }}";
+                                    if (userstatus=="0"){
+                                        window.location.href='/teamList/';
+                                    }else{
+                                        var userteam="{{ userteam }}";
+                                        var str='/teamDetail?Fteam='+userteam;
+                                        window.location.href=str;
+                                    }
+
+                                 });
+                                 //注意此出绑定的方法是否为一次性
+                                 $("#textExample").modal('toggle');
+                             }
+                             else{
+                                 $("#example").modal('toggle');
+                                 $("#AlertMessage").text("添加失败");
+                             }
+                     })
+    })
+</script>
+        {% include "footer.html" %}

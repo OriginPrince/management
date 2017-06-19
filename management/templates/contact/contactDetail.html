@@ -1,0 +1,85 @@
+﻿{% include "top.html" %}
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                   <div class="col-md-8">
+                     <h2>交流活动详情</h2>
+                    </div>
+                    <div class="col-md-4">
+                        {% ifequal userstatus 1 %}
+                            <button type="button" id="contactDel" class="btn btn-danger" style="float: right;margin-right: 50px;margin-top: 20px;">删除</button>
+                        {% else %}
+                        {% endifequal %}
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            交流活动详情
+                        </div>
+                        <div class="panel-body" style="padding:20px 60px 20px 60px;background: url(/static/img/img4.png) no-repeat;background-size: 100% 100%;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 id="Ntitle">{{ contact.title }}</h3>
+                                </div>
+                                <div class="col-md-3">
+                                    {% ifequal userstatus 1 %}
+                                 <a type="button" id="Nchange" class="btn btn-primary" style="float: right;margin-right: 30px;margin-top: 20px;">修改</a>
+                                 {% else %}
+                                 {% endifequal %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="Ncontent">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-3">
+                                    <p id="Nauthor">{{ contact.author }}</p>
+                                    <p id="Ntime">{{ contact.time }}</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+<script src="/static/js/HTMLcode.js"></script>
+<script>
+    var text="{{ contact.content }}"
+    text=HtmlUtil.htmlDecode(text)
+    alert(text)
+    $("#Ncontent").html(text)
+    $("#Nchange").click(function(){
+        var title="{{ contact.title }}";
+    var author="{{ contact.author }}";
+    var time="{{ contact.time }}";
+   var str='/contactUpdate?Ftitle='+title+'&Ftime='+time+'&Fauthor='+author+'&Fcontent='+text;
+        alert(str);
+    window.location.href=str
+    });
+    $("#contactDel").click(function(){
+    var time="{{ contact.time }}";
+         $("#textMessage").text("确认删除？");
+        $("#TextSubmit").click(function(){
+            var str='/contactDel/?Ftime='+time;
+            window.location.href=str;
+        });
+        $("#textExample").modal('toggle');
+    })
+</script>
+{% include "footer.html" %}

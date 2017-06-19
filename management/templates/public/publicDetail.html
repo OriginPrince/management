@@ -1,0 +1,84 @@
+﻿{% include "top.html" %}
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                   <div class="col-md-8">
+                     <h2>公告信息</h2>
+                    </div>
+                    <div class="col-md-4">
+                        {% ifequal userstatus 1 %}
+                            <button type="button" id="publicDel" class="btn btn-danger" style="float: right;margin-right: 50px;margin-top: 20px;">删除</button>
+                        {% else %}
+                        {% endifequal %}
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                         {{ tag }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 id="Ntitle">{{ public.title }}</h3>
+                                </div>
+                                <div class="col-md-3">
+                                    {% ifequal userstatus 1 %}
+                                 <a type="button" id="Nchange" class="btn btn-primary" style="float: right;margin-right: 30px;margin-top: 20px;">修改</a>
+                                 {% else %}
+                                 {% endifequal %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="Ncontent">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-3">
+                                    <p id="Nauthor">{{ public.author }}</p>
+                                    <p id="Ntime">{{ public.time }}</p>
+                                    <input id="TEcontent" type="text" style="display: none;" value="{{ public.content }}"/>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+<script src="/static/js/HTMLcode.js"></script>
+<script>
+    var text=$("#TEcontent").val()
+ $("#Ncontent").html(text)//直接将带有html标签的内容赋值给富文本编辑器，显示的内容就会带有格式
+    $("#Nchange").click(function(){
+        var title="{{ public.title }}";
+    var author="{{ public.author }}";
+    var time="{{ public.time }}";
+   var str='/publicUpdate?Ftitle='+title+'&Ftime='+time+'&Fauthor='+author+'&Fcontent='+text;
+        alert(str);
+    window.location.href=str
+    });
+    $("#publicDel").click(function(){
+    var time="{{ public.time }}";
+         $("#textMessage").text("确认删除？");
+        $("#TextSubmit").click(function(){
+            var str='/publicDel/?Ftime='+time;
+            window.location.href=str;
+        });
+        $("#textExample").modal('toggle');
+    })
+</script>
+{% include "footer.html" %}

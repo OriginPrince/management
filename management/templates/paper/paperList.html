@@ -1,0 +1,106 @@
+﻿{% include "top.html" %}
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                    <div class="panel panel-default" style="margin-left: 2px;margin-right: 2px;margin-top: 20px;">
+                        <div class="panel-heading" style="text-align: center">
+                            论文列表
+                        </div>
+                        <div class="panel-body">
+                                {% ifequal userstatus 1 %}
+                                <a type="button" href="/paperAdd/" class="btn btn-primary" style="float: right;margin-right: 50px;">添加论文</a>
+                                {% else %}
+                                {% endifequal %}
+                        </div>
+                        <!--
+                        <div class="panel-footer">
+                            书籍是人类进步的阶梯
+                        </div>
+                        -->
+                    </div>
+
+                 <!-- /. ROW  -->
+                 <hr />
+               
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             论文列表
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>题目</th>
+                                            <th>编号</th>
+                                            <th>作者</th>
+                                            <th>时间</th>
+                                            <th>内容</th>
+                                            <th>下载</th>
+                                            {% ifequal userstatus 1 %}
+                                            <th>修改</th>
+                                                <th>删除</th>
+                                            {% else %}
+                                            {% endifequal %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in List %}
+                                    <tr>
+                                            <td class="center">{{ i.title }}</td>
+                                            <td class="center">{{ i.number }}</td>
+                                            <td class="center">{{ i.author }}</td>
+                                            <td class="center">{{ i.time }}</td>
+                                            <td class="center">{{ i.content }}</td>
+                                        <td class="center">
+                                            <input style="display: none" value="{{ i.file }}" />
+                                            <a class="download">下载</a>
+                                        </td>
+                                        {% ifequal userstatus 1 %}
+                                            <td class="center"><a class="amend">修改</a></td>
+                                            <td class="center"><a class="delete">删除</a></td>
+                                        {% else %}
+                                        {% endifequal %}
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+            </div>
+        </div>
+<script>
+    $(".download").click(function(){
+        var file=$(this).prev().val();
+        //file=window.encodeURIComponent(file);
+        str='/paperFile/?Ffile='+file
+        window.location.href=str
+    })
+    $(".amend").click(function(){
+        var file=$(this).parent().prev().text();
+        var content=$(this).parent().prev().prev().text();
+        var time=$(this).parent().prev().prev().prev().text();
+        var author=$(this).parent().prev().prev().prev().prev().text();
+        var number=$(this).parent().prev().prev().prev().prev().prev().text();
+        var title=$(this).parent().prev().prev().prev().prev().prev().prev().text();
+         var str='/paperUpdate/?Fcontent='+content+"&Ftime="+time+"&Fauthor="+author+"&Fnumber="+number+"&Ftitle="+title+"&Ffile="+file;
+         window.location.href=str
+})
+    $(".delete").click(function(){
+        var number=$(this).parent().prev().prev().prev().prev().prev().prev().text();
+         $("#textMessage").text("确认删除？");
+        $("#TextSubmit").click(function(){
+            var str='/paperDel/?Fnumber='+number;
+            window.location.href=str;
+        });
+        $("#textExample").modal('toggle');
+    })
+</script>
+   {% include "footer.html" %}

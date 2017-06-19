@@ -1,0 +1,138 @@
+﻿{% include "top.html" %}
+<style>
+        .controls{
+            margin-left: 150px;
+            padding:20px 30px 20px 0 ;
+        }
+        .control-label {
+            padding-top: 30px;
+            width: 130px;
+            float: left;
+        }
+
+</style>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-8">
+                     <h2>关于我们列表</h2>
+                    </div>
+                    <div class="col-md-4">
+                        {% ifequal userstatus 1 %}
+                            <a type="button" href="/aboutAdd/" class="btn btn-primary" style="float: right;margin-right: 50px;margin-top: 20px;">添加分类</a>
+                        {% else %}
+                        {% endifequal %}
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               
+            <div class="row">
+                <div class="col-md-4">
+                    <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>分类</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in List %}
+                                    <tr>
+                                        <td class="center"><a class="amend">{{ i.className }}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                    </table>
+                </div>
+                <div class="col-md-8">
+                     <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            关于我们详情
+                        </div>
+                        <div class="panel-body">
+                                    <h3>关于我们详情</h3>
+                                    <form  class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">分类</label>
+                                            <div class="controls">
+                                                <p class="form-control" id="className"></p>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">作者</label>
+                                            <div class="controls">
+                                                <p class="form-control" id="author"></p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">内容</label>
+                                             <div class="controls">
+                                            <p class="form-control" id="content">
+                                            </p>
+                                                </div>
+                                        </div>
+                                        {% ifequal userstatus 1 %}
+                                        <div class="control-group">
+                                        <button type="reset"  id="aboutDel" class="btn btn-danger" style="float: left;margin-left: 60px;width: 80px;">删除</button>
+                                        <button type="button" id="REsubmit" class="btn btn-success" style="float: right;margin-right: 60px;width: 80px;">修改</button>
+                                        </div>
+                                        {% else %}
+                                        {% endifequal %}
+                                    </form>
+                                    <br />
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+<script>
+
+    $(".amend").click(function(){
+        $(".amend").parent().parent().removeClass("grey-block");
+        $(this).parent().parent().addClass("grey-block");
+        var className=$(this).text();
+         var str='/aboutDetail/?FclassName='+className;
+         $.get('/aboutDetail/',{FclassName:className}).done(function(result){
+             if(result=="false"){
+                                    $("#example").modal('toggle');
+                                     $("#AlertMessage").text("查找失败");
+                             }else{
+                                 var data=JSON.parse(result)
+                                 var className=data.className
+                                 var author=data.author
+                                 var content=data.content
+                               $("#className").text(className)
+                                $("#author").text(author)
+                                $("#content").text(content)
+                             }
+         })
+
+})
+     $(".amend").trigger("click");
+     $("#REsubmit").click(function(){
+        var classname=$("#className").text();
+        if(classname!=""){
+            var str='/aboutUpdate?FclassName='+classname;
+        window.location.href=str;
+        }
+
+    });
+     $("#aboutDel").click(function(){
+        var classname=$("#className").text();
+        if(classname!="") {
+            $("#textMessage").text("确认删除？");
+            $("#TextSubmit").click(function () {
+                var str = '/aboutDel?FclassName=' + classname;
+                window.location.href = str;
+            });
+            $("#textExample").modal('toggle');
+        }
+    })
+</script>
+   {% include "footer.html" %}

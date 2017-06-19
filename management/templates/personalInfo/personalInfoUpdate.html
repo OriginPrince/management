@@ -1,0 +1,192 @@
+﻿{% include "top.html" %}
+<style>
+        .controls{
+            margin-left: 200px;
+            padding:20px 30px 20px 0 ;
+        }
+        .control-label {
+            padding-top: 30px;
+            width: 180px;
+            float: left;
+        }
+</style>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>个人信息</h2>
+                       
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               <div class="row">
+                   <div class="col-md-2">
+                       </div>
+                <div class="col-md-8">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           个人信息更新
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>个人信息更新</h3>
+                                    <form  class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">用户姓名</label>
+                                            <div class="controls">
+                                            <input class="form-control" id="REname" type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">用户ID</label>
+                                            <div class="controls">
+                                            <p class="form-control">{{ person.number }}</p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">密码</label>
+                                            <div class="controls">
+                                            <input class="form-control" id="REpsd" type="password" placeholder="PLease Enter Keyword" />
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">确认密码</label>
+                                            <div class="controls">
+                                            <input class="form-control" id="RErepsd" type="password" placeholder="PLease Enter Keyword" />
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">电话号码</label>
+                                            <div class="controls">
+                                            <input class="form-control" id="REphone" type="text" placeholder="PLease Enter Keyword" />
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">权限</label>
+                                            <div class="controls">
+                                                {% ifequal userstatus 0 %}
+                                                <input readonly="readonly" class="form-control" value="系统管理员"/>
+                                                {% endifequal %}
+                                                {% ifequal userstatus 1 %}
+                                                <input readonly="readonly" class="form-control" value="研究组管理员" />
+                                                {% endifequal %}
+                                                {% ifequal userstatus 2 %}
+                                                <input readonly="readonly" class="form-control" value="普通用户"/>
+                                                {% endifequal %}
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">所属研究组</label>
+                                            <div class="controls">
+                                                <input readonly="readonly" class="form-control" value="{{userteamName}}">
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                        <button type="reset" class="btn btn-default" style="float: left;margin-left: 60px;width: 80px;">重置</button>
+                                        <button type="button" id="REsubmit" class="btn btn-success" style="float: right;margin-right: 60px;width: 80px;">修改</button>
+                                            </div>
+                                    </form>
+                                    <br />
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+                   <div class="col-md-2">
+                   </div>
+            </div>
+                <!-- /. ROW  -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>More Customization</h3>
+                         <p>
+                        For more customization for this template or its components please visit official bootstrap website i.e getbootstrap.com or <a href="#/components/" target="_blank">click here</a> . We hope you will enjoy our template. This template is easy to use, light weight and made with love by binarycart.com 
+                        </p>
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+             </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+<script>
+        $("#REname").val("{{ person.name }}");
+         $("#REnumber").val("{{ person.number }}")
+         $("#REpsd").val("{{ person.pwd }}").blur(function(){
+        var psd=$("#REpsd").val();
+        var regx=/[0-9 | A-Z | a-z]{6,20}/;
+        var psdflag=regx.test(psd);
+        if(!psdflag){
+            $("#example").modal('show');
+            $("#AlertMessage").text("密码格式有误");
+        }
+    });
+         $("#RErepsd").val("{{ person.pwd }}").blur(function(){
+        var repsd=$("#RErepsd").val();
+        var psd=$("#REpsd").val();
+        if(psd!=repsd){
+            $("#example").modal('show');
+            $("#AlertMessage").text("两次密码不一样");
+        }
+    });
+         $("#REphone").val("{{ person.phone }}").blur(function(){
+        var phone=$("#REphone").val();
+        var regx=/^1[0-9]{10}$/;
+        var phoneflag=regx.test(phone);
+        if(!phoneflag){
+            $("#example").modal('show');
+            $("#AlertMessage").text("手机号输入有误");
+        }
+    });
+     $(function($){
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+    })
+    $("#REsubmit").click(function(){
+                 var name=$("#REname").val();
+                 var number="{{ person.number }}";
+                 var psd=$("#REpsd").val();
+                 var repsd=$("#RErepsd").val();
+                 var phone=$("#REphone").val();
+                 var status=$("#status").val();
+
+                 var psdregx=/[0-9 | A-Z | a-z]{6,20}/;
+                 var psdflag=psdregx.test(psd);
+                 var phoneregx=/^1[0-9]{10}$/;
+                 var phoneflag=phoneregx.test(phone);
+                if(!psdflag){
+                     $("#example").modal('toggle');
+                    $("#AlertMessage").text("密码格式有误");
+                 }
+                 else if(psd!=repsd){
+                     $("#example").modal('toggle');
+                    $("#AlertMessage").text("两次密码不一致");
+                 }
+                 else if(!phoneflag){
+                     $("#example").modal('toggle');
+                    $("#AlertMessage").text("手机号输入有误");
+                 }
+                 else{
+                        $.post("/personalInfoUpdate_post/",{Fname:name,Fpsd:psd,Fphone:phone,Fnumber:number}).done(function(result){
+                             if(result=="true"){
+                                 $("#textMessage").text("修改成功");
+                                 $("#TextSubmit").click(function(){
+                                     window.location.href='/personalInfoDetail/';
+                                 });
+                                 //注意此出绑定的方法是否为一次性
+                                 $("#textExample").modal('toggle');
+                             }else{
+                                 $("#example").modal('toggle');
+                                 $("#AlertMessage").text("修改失败");
+                             }
+                     })
+                 }
+    });
+</script>
+        {% include "footer.html" %}

@@ -1,0 +1,223 @@
+﻿{% include "top.html" %}
+<style>
+        .controls{
+            margin-left: 200px;
+            padding:20px 30px 20px 0 ;
+        }
+        .control-label {
+            padding-top: 30px;
+            width: 180px;
+            float: left;
+        }
+</style>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-8">
+                     <h2>
+                         {% ifequal userstatus 0 %}
+                         研究组详情
+                         {% endifequal %}
+                     {% ifequal userstatus 1 %}
+                         研究队伍详情
+                         {% endifequal %}
+                     </h2>
+                    </div>
+                    <div class="col-md-4">
+                        {% ifequal userstatus 0 %}
+
+                            <button type="button" id="teamDel" class="btn btn-danger" style="float: right;margin-right: 50px;margin-top: 20px;">删除</button>
+{% else %}
+                        {% endifequal %}
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               <div class="row">
+                   <div class="col-md-2">
+                       </div>
+                <div class="col-md-8">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           {% ifequal userstatus 0 %}
+                         研究组详情
+                         {% endifequal %}
+                     {% ifequal userstatus 1 %}
+                         研究队伍详情
+                         {% endifequal %}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>
+                                        {% ifequal userstatus 0 %}
+                         研究组详情
+                         {% endifequal %}
+                     {% ifequal userstatus 1 %}
+                         研究队伍详情
+                         {% endifequal %}
+                                    </h3>
+                                    <form  class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">研究组名称</label>
+                                            <div class="controls">
+                                                <p class="form-control" id="REname"></p>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">研究组编号</label>
+                                            <div class="controls">
+                                           <p class="form-control" id="REnumber"></p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">研究组描述</label>
+                                            <div class="controls">
+                                                <p class="form-control" id="REdes">
+                                                </p>
+                                                </div>
+                                        </div>
+                                    {% ifequal userstatus 1 %}
+                                        <div class="control-group">
+                                            <label class="control-label">已有分类</label>
+                                            <div class="controls">
+                                                <p class="form-control" id="REdes">
+                                                    {% for i in List %}
+                                                    {{ i.number }}:{{ i.name }};&nbsp;&nbsp;&nbsp;
+                                                    {% endfor %}
+                                                </p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">分类详情</label>
+                                            <div class="controls">
+                                                <button type="button" class="btn btn-primary"  id="REaddtag">编辑分类</button>
+                                                </div>
+                                        </div>
+                                    <div class="control-group">
+                                            <label class="control-label">已有导师</label>
+                                            <div class="controls">
+                                                <p class="form-control" id="REdes">
+                                                    {% for i in teacher %}
+                                                    {{ i.number }}:{{ i.name }};&nbsp;&nbsp;&nbsp;
+                                                    {% endfor %}
+                                                </p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">导师详情</label>
+                                            <div class="controls">
+                                                <button type="button" class="btn btn-primary"  id="RETeacher">编辑导师</button>
+                                                </div>
+                                        </div>
+                                    <div class="control-group">
+                                             <label class="control-label">已有研究员</label>
+                                            <div class="controls">
+                                                <p class="form-control" id="REdes">
+                                                    {% for i in reUser %}
+                                                    {{ i.number }}:{{ i.name }};&nbsp;&nbsp;&nbsp;
+                                                    {% endfor %}
+                                                </p>
+                                                </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">研究员详情</label>
+                                            <div class="controls">
+                                                <button type="button" class="btn btn-primary"  id="REUser">编辑研究员</button>
+                                                </div>
+                                        </div>
+                                    {% ifequal userstatus 2 %}
+                                        {% else %}
+                                        <div class="control-group">
+                                        <button type="button"  id="test" class="btn btn-default" style="float: left;margin-left: 60px;width: 80px;">返回</button>
+                                        <button type="button" id="REsubmit" class="btn btn-primary" style="float: right;margin-right: 60px;width: 80px;">修改</button>
+                                        </div>
+                                    {% endifequal %}
+                                    {% endifequal %}
+                                    </form>
+                                    <br />
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+                   <div class="col-md-2">
+                   </div>
+            </div>
+                <!-- /. ROW
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>More Customization</h3>
+                         <p>
+                        For more customization for this template or its components please visit official bootstrap website i.e getbootstrap.com or <a href="#/components/" target="_blank">click here</a> . We hope you will enjoy our template. This template is easy to use, light weight and made with love by binarycart.com 
+                        </p>
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+             </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+<script>
+    $("#REname").text("{{ team.name }}");
+    $("#REnumber").text("{{ team.number }}");
+    $("#REdes").text("{{ team.describe }}");
+        $("#test").click(function(){
+            history.back()
+        });
+    $("#REaddtag").click(function () {
+        var str='/reClassList/?Tnumber='+"{{ team.number }}";
+        alert(str)
+        window.location.href=str
+    })
+    $("#RETeacher").click(function () {
+        var str='/reTeacherList/?Fnumber='+"{{ team.number }}";
+        alert(str)
+        window.location.href=str
+    })
+    $("#REUser").click(function () {
+        var str='/reUserList/?Fnumber='+"{{ team.number }}";
+        alert(str)
+        window.location.href=str
+    })
+    $("#REsubmit").click(function () {
+        var name="{{ team.name }}";
+        var des="{{ team.describe }}";
+        var number="{{ team.number }}";
+        var str='/teamUpdate/?name='+name+'&number='+number+'&des='+des;
+        window.location.href=str
+    })
+    $("#teamDel").click(function(){
+        var number="{{ team.number }}";
+         $("#textMessage").text("确认删除团队？");
+        $("#TextSubmit").click(function(){
+            $.get('/teamDelData/',{Fnumber:number}).done(function (result) {
+                alert(result)
+                if (result=='true'){
+                    window.location.href='/teamDel_post/?Fnumber='+number;
+                    alert("删除成功")
+                }
+                else if (result=='alreadyClass'){
+                    $("#example").modal('toggle');
+                    $("#AlertMessage").text("请先删除团队下的分类");
+                }
+                else if (result=='alreadyUser'){
+                    $("#example").modal('toggle');
+                    $("#AlertMessage").text("请先修改团队下的用户");
+                }
+                else{
+                    $("#example").modal('toggle');
+                    $("#AlertMessage").text("删除失败");
+                }
+            })
+            //window.location.href='/reClassDel/?Fnumber='+number+'Tnumber'+Tnumber;
+        });
+        //注意此出绑定的方法是否为一次性
+        $("#textExample").modal('toggle');
+    })
+</script>
+        {% include "footer.html" %}

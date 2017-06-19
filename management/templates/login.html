@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>通用大学科研组科学信息管理系统</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="/static/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="/static/css/custom.css" rel="stylesheet" />
+    <script src="/static/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="/static/js/bootstrap.min.js"></script>
+</head>
+<style>
+    body {width: 100%;    height: 100%;
+        overflow-x: hidden;background:url(/static/img/loginBackground.jpg) no-repeat;
+        margin-top: 70px;  font-family: 'Open Sans', sans-serif; font-size:12px; color:#666;background-size:cover;
+    }
+</style>
+<body>
+{% include "modalBox.html" %}
+    <div class="container" >
+        <div class="row text-center ">
+            <div class="col-md-12">
+                <br /><br />
+                <h2> 登录</h2>
+               
+               <!-- <h5>( Login yourself to get access )</h5>-->
+                 <br />
+            </div>
+        </div>
+         <div class="row ">
+                  <div style="width: 500px;margin:0 auto ;alpha(opacity=90); opacity:0.9; ">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                        <strong>   请输入登录信息 </strong>
+                            </div>
+                            <div class="panel-body" >
+                                <form role="form">
+                                       <br />
+                                     <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
+                                            <input type="text" class="form-control" id="unumber" placeholder="请输入用户编号 " />
+                                        </div>
+                                                                              <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                                            <input type="password" class="form-control" id="upwd" placeholder="请输入密码" />
+                                        </div>
+
+                                    <div>
+                                    <button type="reset"  class="btn btn-default " style="float: left;margin-left: 20px;">重置</button>
+                                     
+                                     <button type="button"  id="btnSubmit" class="btn btn-success " style="float: right;margin-right: 20px;">登录</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+        </div>
+    </div>
+<script>
+    $(function($){
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+    })
+    $("#btnSubmit").click(function(){
+        var number=$("#unumber").val();
+        var pwd=$("#upwd").val();
+        $.post("/login_post/",{Fnumber:number,Fpwd:pwd}).done(function(result){
+            if(result=="wrong"){
+                                 $("#example").modal('toggle');
+                                 $("#AlertMessage").text("ID号或密码不匹配");
+                             }else if(result=="NoData"){
+                                 $("#example").modal('toggle');
+                                 $("#AlertMessage").text("登录失败");
+                             }else{
+                                 $("#textMessage").text("登录成功");
+                                 $("#TextSubmit").click(function(){
+                                     var userstatus=result;
+                                     if (userstatus==0){
+                                         window.location.href='/userList/'
+                                     }else if(userstatus==1){
+                                         window.location.href='/userList/'
+                                     }else{
+                                         window.location.href='/newsList/'
+                                     }
+
+                                 });
+                                 //注意此出绑定的方法是否为一次性
+                                 $("#textExample").modal('toggle');
+                             }
+         })
+    })
+</script>
+
+    <!-- METISMENU SCRIPTS -->
+    <script src="/static/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="/static/js/custom.js"></script>
+
+</body>
+</html>
